@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS discovery_session_file;

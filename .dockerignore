@@ -1,0 +1,7 @@
+.git
+.gitignore
+.idea
+main.exe
+.gogen
+config.local.yml
+internal/file_uploader/public/upload

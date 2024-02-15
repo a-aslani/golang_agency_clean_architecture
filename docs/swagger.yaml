@@ -1,0 +1,252 @@
+definitions:
+  calendly_discovery_session_on_scheduled.InportResponse:
+    type: object
+  discovery_session_request.InportResponse:
+    properties:
+      id:
+        type: string
+      message:
+        type: string
+    type: object
+  payload.Response:
+    properties:
+      data: {}
+      error_code:
+        type: string
+      error_message:
+        type: string
+      success:
+        type: boolean
+      trace_id:
+        type: string
+    type: object
+  restapi.discoverySessionRequestHandlerRequest:
+    properties:
+      date:
+        type: string
+      email:
+        type: string
+      files:
+        items:
+          type: string
+        type: array
+      name:
+        type: string
+      project_details:
+        type: string
+      recaptcha_token:
+        type: string
+    type: object
+  restapi.subscribeHandlerRequest:
+    properties:
+      email:
+        type: string
+    type: object
+  send_contact_form.InportRequest:
+    properties:
+      apiurl:
+        type: string
+      email:
+        type: string
+      files:
+        items:
+          type: string
+        type: array
+      id:
+        type: string
+      message:
+        type: string
+      name:
+        type: string
+      now:
+        type: string
+      recaptchaToken:
+        type: string
+      secret:
+        type: string
+      testMode:
+        type: boolean
+    type: object
+  send_contact_form.InportResponse:
+    properties:
+      id:
+        type: string
+      message:
+        type: string
+    type: object
+  subscribe.InportResponse:
+    properties:
+      id:
+        type: string
+      message:
+        type: string
+    type: object
+  upload_file.InportResponse:
+    properties:
+      id:
+        type: string
+      message:
+        type: string
+      path:
+        type: string
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:8888
+info:
+  contact:
+    email: a.aslani.dev@gmail.com
+    name: API Support
+    url: https://github.com/a-aslani
+  description: API Documentation.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://github.com/a-aslani
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /file-uploader/v1/upload:
+    post:
+      consumes:
+      - multipart/form-data
+      description: uploading file
+      parameters:
+      - description: upload file
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/upload_file.InportResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/payload.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/payload.Response'
+      summary: uploading file
+      tags:
+      - UploadFile
+  /newsletter/v1/subscribers:
+    post:
+      consumes:
+      - application/json
+      description: send subscribe to the newsletter
+      parameters:
+      - description: body params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/restapi.subscribeHandlerRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/subscribe.InportResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/payload.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/payload.Response'
+      summary: send subscribe to the newsletter
+      tags:
+      - Subscribe
+  /project/v1/discovery-session:
+    post:
+      consumes:
+      - application/json
+      description: sending discovery session date
+      parameters:
+      - description: body params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/restapi.discoverySessionRequestHandlerRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/discovery_session_request.InportResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/payload.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/payload.Response'
+      summary: send discovery session
+      tags:
+      - DiscoverySessionRequest
+  /project/v1/discovery-session/calendly:
+    get:
+      consumes:
+      - application/json
+      description: notify messaging when scheduled session with the Calendly
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/calendly_discovery_session_on_scheduled.InportResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/payload.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/payload.Response'
+      summary: notify scheduled Calendly
+      tags:
+      - CalendlyDiscoverySessionOnScheduled
+  /support/v1/contact-us:
+    post:
+      consumes:
+      - application/json
+      description: sending contact form data
+      parameters:
+      - description: body params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/send_contact_form.InportRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/send_contact_form.InportResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/payload.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/payload.Response'
+      summary: sending contact form
+      tags:
+      - SendContactForm
+swagger: "2.0"

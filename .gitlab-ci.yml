@@ -1,0 +1,13 @@
+stages:
+  - deploy
+
+deploy-project-main:
+  stage: deploy
+  script:
+    - cd /to_your_project_directory
+    - sudo git pull origin main
+    - sudo docker compose up --build -d
+  only:
+    - main
+  tags:
+    - main

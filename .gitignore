@@ -1,0 +1,4 @@
+.idea
+gomock_reflect_*
+internal/file_uploader/public/upload
+config.local.yml

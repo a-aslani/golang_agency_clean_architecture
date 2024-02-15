@@ -1,0 +1,46 @@
+version: "3.9"
+
+test_mode: false
+jwt_secret_key: "bwrMY2iQTYBa3ZFIYH988RxP4G4fucvhXVQAxkxcJaAjooeQ6TG8XtWqK1IAgGUk"
+recaptcha_secret_key: "your_key"
+api_url: "https://agency.com"
+telegram_bot_token: "your_token"
+swagger_port: 6060
+
+servers:
+  newsletter:
+    address: ":8000"
+    postgres_db:
+      host: "postgres"
+      port: 5432
+      name: "agency_db"
+      user: "root"
+      password: "secret"
+      ssl_mode: "disable"
+  file_uploader:
+    address: ":8001"
+    postgres_db:
+      host: "postgres"
+      port: 5432
+      name: "agency_db"
+      user: "root"
+      password: "secret"
+      ssl_mode: "disable"
+  support:
+    address: ":8002"
+    postgres_db:
+      host: "postgres"
+      port: 5432
+      name: "agency_db"
+      user: "root"
+      password: "secret"
+      ssl_mode: "disable"
+  project:
+    address: ":8003"
+    postgres_db:
+      host: "postgres"
+      port: 5432
+      name: "agency_db"
+      user: "root"
+      password: "secret"
+      ssl_mode: "disable"
