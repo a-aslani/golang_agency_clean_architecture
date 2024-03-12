@@ -63,7 +63,7 @@ func TestMain(m *testing.M) {
 
 	googleRecaptcha := recaptcha.NewGoogleRecaptcha()
 
-	telegramBot, err := notification.NewTelegramBot(cfg.TelegramBotToken, true)
+	telegramBot, err := notification.NewTelegramBot(cfg.TelegramBot, true)
 	if err != nil {
 		log.Fatalf("telegram bot error: %v", err)
 	}

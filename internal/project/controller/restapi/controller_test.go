@@ -48,6 +48,7 @@ func TestDiscoverySessionRequestHandler(t *testing.T) {
 	router.POST(path, primaryDriver.discoverySessionRequestHandler())
 
 	timeParamLayout := "2006-01-02T15:04:05.000Z"
+	budget := "> $40,000"
 
 	type testcase struct {
 		Name       string
@@ -66,6 +67,7 @@ func TestDiscoverySessionRequestHandler(t *testing.T) {
 				Email:          faker.Email(),
 				Date:           time.Now().Add(48 * time.Hour).Format(timeParamLayout),
 				ProjectDetails: faker.Sentence(),
+				Budget:         budget,
 				Files: []string{
 					faker.URL(),
 					faker.URL(),
@@ -83,6 +85,7 @@ func TestDiscoverySessionRequestHandler(t *testing.T) {
 				Email:          faker.Email(),
 				Date:           time.Now().Add(48 * time.Hour).Format(timeParamLayout),
 				ProjectDetails: faker.Sentence(),
+				Budget:         budget,
 				Files:          []string{},
 			},
 			StatusCode: http.StatusBadRequest,
@@ -95,6 +98,7 @@ func TestDiscoverySessionRequestHandler(t *testing.T) {
 				Email:          "",
 				Date:           time.Now().Add(48 * time.Hour).Format(timeParamLayout),
 				ProjectDetails: faker.Sentence(),
+				Budget:         budget,
 				Files:          []string{},
 			},
 			StatusCode: http.StatusBadRequest,
@@ -107,6 +111,7 @@ func TestDiscoverySessionRequestHandler(t *testing.T) {
 				Email:          faker.Email(),
 				Date:           time.Now().Add(48 * time.Hour).Format(timeParamLayout),
 				ProjectDetails: "",
+				Budget:         budget,
 				Files:          []string{},
 			},
 			StatusCode: http.StatusBadRequest,
@@ -119,10 +124,24 @@ func TestDiscoverySessionRequestHandler(t *testing.T) {
 				Email:          faker.Email(),
 				Date:           time.Now().Format(timeParamLayout),
 				ProjectDetails: faker.Sentence(),
+				Budget:         budget,
 				Files:          []string{},
 			},
 			StatusCode: http.StatusBadRequest,
 			ErrorMsg:   errorenum.InvalidDiscoverySessionDate.Error(),
+		},
+		{
+			Name: "bad request budget",
+			Params: discoverySessionRequestHandlerRequest{
+				Name:           faker.Name(),
+				Email:          faker.Email(),
+				Date:           time.Now().Add(48 * time.Hour).Format(timeParamLayout),
+				ProjectDetails: faker.Sentence(),
+				Budget:         "",
+				Files:          []string{},
+			},
+			StatusCode: http.StatusBadRequest,
+			ErrorMsg:   errorenum.BudgetIsRequired.Error(),
 		},
 	}
 

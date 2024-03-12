@@ -4,8 +4,11 @@ test_mode: false
 jwt_secret_key: "bwrMY2iQTYBa3ZFIYH988RxP4G4fucvhXVQAxkxcJaAjooeQ6TG8XtWqK1IAgGUk"
 recaptcha_secret_key: "your_key"
 api_url: "https://agency.com"
-telegram_bot_token: "your_token"
 swagger_port: 6060
+
+telegram_bot:
+  enable: false
+  token: "your_token"
 
 servers:
   newsletter:

@@ -37,7 +37,7 @@ func (project) Run(cfg *configs.Config) error {
 
 	googleRecaptcha := recaptcha.NewGoogleRecaptcha()
 
-	telegramBot, err := notification.NewTelegramBot(cfg.TelegramBotToken, true)
+	telegramBot, err := notification.NewTelegramBot(cfg.TelegramBot, true)
 	if err != nil {
 		return err
 	}

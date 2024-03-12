@@ -3,6 +3,7 @@ package notification
 import (
 	"context"
 	"crypto/tls"
+	"github.com/a-aslani/golang_agency_clean_architecture/configs"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"net/http"
 	"time"
@@ -15,10 +16,11 @@ type TelegramBot interface {
 }
 
 type telegramBot struct {
-	bot *tgbotapi.BotAPI
+	bot      *tgbotapi.BotAPI
+	isEnable bool
 }
 
-func NewTelegramBot(telegramBotToken string, debug bool) (*telegramBot, error) {
+func NewTelegramBot(telegramBotCfg configs.TelegramBot, debug bool) (*telegramBot, error) {
 
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
@@ -29,19 +31,29 @@ func NewTelegramBot(telegramBotToken string, debug bool) (*telegramBot, error) {
 		Transport: tr,
 	}
 
-	bot, err := tgbotapi.NewBotAPIWithClient(telegramBotToken, tgbotapi.APIEndpoint, client)
-	if err != nil {
-		return nil, err
+	var bot *tgbotapi.BotAPI
+	var err error
+
+	if telegramBotCfg.Enable {
+		bot, err = tgbotapi.NewBotAPIWithClient(telegramBotCfg.Token, tgbotapi.APIEndpoint, client)
+		if err != nil {
+			return nil, err
+		}
+
+		bot.Debug = debug
 	}
 
-	bot.Debug = debug
-
 	return &telegramBot{
-		bot: bot,
+		bot:      bot,
+		isEnable: telegramBotCfg.Enable,
 	}, nil
 }
 
 func (t *telegramBot) CommandHandling(ctx context.Context, cmd func(tgbotapi.Update) string) error {
+
+	if !t.isEnable {
+		return nil
+	}
 
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60
@@ -71,6 +83,10 @@ func (t *telegramBot) CommandHandling(ctx context.Context, cmd func(tgbotapi.Upd
 }
 
 func (t *telegramBot) SendMessage(ctx context.Context, chatId int64, text string, parseMode string) error {
+
+	if !t.isEnable {
+		return nil
+	}
 
 	msg := tgbotapi.NewMessage(chatId, text)
 
