@@ -12,6 +12,7 @@ type DiscoverySession struct {
 	Email          vo.DiscoverySessionEmail          `bson:"email" json:"email"`
 	Date           vo.DiscoverySessionDate           `bson:"date" json:"date"`
 	ProjectDetails vo.DiscoverySessionProjectDetails `bson:"projectDetails" json:"projectDetails"`
+	Budget         vo.DiscoverySessionBudget         `bson:"budget" json:"budget"`
 	Files          []*File                           `json:"files"`
 	Created        time.Time                         `bson:"created" json:"created"`
 	Updated        time.Time                         `bson:"updated" json:"updated"`
@@ -24,6 +25,7 @@ type DiscoverySessionCreateRequest struct {
 	Email          vo.DiscoverySessionEmail          `json:"email"`
 	Date           vo.DiscoverySessionDate           `json:"date"`
 	ProjectDetails vo.DiscoverySessionProjectDetails `json:"projectDetails"`
+	Budget         vo.DiscoverySessionBudget         `json:"budget"`
 	Files          []*File                           `json:"files"`
 }
 
@@ -42,6 +44,10 @@ func (r DiscoverySessionCreateRequest) Validate() error {
 	}
 
 	if err := r.ProjectDetails.Validate(); err != nil {
+		return err
+	}
+
+	if err := r.Budget.Validate(); err != nil {
 		return err
 	}
 
@@ -68,6 +74,7 @@ func NewDiscoverySession(req DiscoverySessionCreateRequest) (*DiscoverySession, 
 	obj.Email = req.Email
 	obj.Date = req.Date
 	obj.ProjectDetails = req.ProjectDetails
+	obj.Budget = req.Budget
 	obj.Files = req.Files
 
 	return &obj, nil

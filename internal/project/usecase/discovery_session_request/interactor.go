@@ -48,6 +48,7 @@ func (r *discoverySessionRequestInteractor) Execute(ctx context.Context, req Inp
 		Email:          req.Email,
 		Date:           req.Date,
 		ProjectDetails: req.ProjectDetails,
+		Budget:         req.Budget,
 		Files:          fileObjs,
 	})
 	if err != nil {
@@ -104,15 +105,15 @@ func generateMessage(discoverySessionObj *entity.DiscoverySession, files []*enti
 	t := discoverySessionObj.Date.Time().In(loc)
 
 	msg := fmt.Sprintf(
-		"*New discovery session!*\n\n*%s*\n\n*Name:* %s\n*E-Mail:* %s\n*Date:* %s (%s)\n*Project Details:*\n%s\n",
+		"*New discovery session!*\n\n*%s*\n\n*Name:* %s\n*E-Mail:* %s\n*Date:* %s (%s)\n*Budget:* %s\n*Project Details:*\n%s\n",
 		discoverySessionObj.ID,
 		discoverySessionObj.Name,
 		discoverySessionObj.Email,
 		fmt.Sprintf("%d %v %d - %d:%d", t.Year(), t.Month(), t.Day(), t.Hour(), t.Minute()),
 		LocalDate,
+		discoverySessionObj.Budget,
 		discoverySessionObj.ProjectDetails,
 	)
-
 	if len(files) > 0 {
 		msg += fmt.Sprintf("\n*Files*:%v", msgFiles)
 	}

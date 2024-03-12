@@ -2,16 +2,15 @@ package restapi
 
 import (
 	"context"
+	"github.com/a-aslani/golang_agency_clean_architecture/internal/newsletter/usecase/subscribe"
+	"github.com/a-aslani/golang_agency_clean_architecture/pkg/framework"
 	"github.com/a-aslani/golang_agency_clean_architecture/pkg/framework/model/payload"
 	"github.com/a-aslani/golang_agency_clean_architecture/pkg/framework/util"
 	"github.com/a-aslani/golang_agency_clean_architecture/pkg/logger"
+	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"net/http"
 	"time"
-
-	"github.com/a-aslani/golang_agency_clean_architecture/internal/newsletter/usecase/subscribe"
-	"github.com/a-aslani/golang_agency_clean_architecture/pkg/framework"
-	"github.com/gin-gonic/gin"
 )
 
 type subscribeHandlerRequest struct {

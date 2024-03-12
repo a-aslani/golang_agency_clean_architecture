@@ -22,6 +22,8 @@ definitions:
     type: object
   restapi.discoverySessionRequestHandlerRequest:
     properties:
+      budget:
+        type: string
       date:
         type: string
       email:

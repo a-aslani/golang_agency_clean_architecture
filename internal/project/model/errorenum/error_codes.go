@@ -14,4 +14,5 @@ const (
 	FilePathIsRequired          apperror.ErrorType = "ER0009 file path is required"
 	RoleCodeIsRequired          apperror.ErrorType = "ER0010 role code is required"
 	RoleNameIsRequired          apperror.ErrorType = "ER0011 role name is required"
+	BudgetIsRequired            apperror.ErrorType = "ER0012 project budget is required"
 )

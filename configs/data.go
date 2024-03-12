@@ -5,7 +5,7 @@ type Config struct {
 	JWTSecretKey       string            `mapstructure:"jwt_secret_key"`
 	RecaptchaSecretKey string            `mapstructure:"recaptcha_secret_key"`
 	APIUrl             string            `mapstructure:"api_url"`
-	TelegramBotToken   string            `mapstructure:"telegram_bot_token"`
+	TelegramBot        TelegramBot       `mapstructure:"telegram_bot"`
 	SwaggerPort        int               `mapstructure:"swagger_port"`
 	TestMode           bool              `mapstructure:"test_mode"`
 }
@@ -31,4 +31,9 @@ type MongoDB struct {
 	Port     string `mapstructure:"port"`
 	Password string `mapstructure:"password"`
 	Username string `mapstructure:"username"`
+}
+
+type TelegramBot struct {
+	Enable bool   `mapstructure:"enable"`
+	Token  string `mapstructure:"token"`
 }

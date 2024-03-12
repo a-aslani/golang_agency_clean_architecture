@@ -278,6 +278,9 @@ const docTemplate = `{
         "restapi.discoverySessionRequestHandlerRequest": {
             "type": "object",
             "properties": {
+                "budget": {
+                    "type": "string"
+                },
                 "date": {
                     "type": "string"
                 },

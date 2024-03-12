@@ -1,0 +1,1 @@
+ALTER TABLE discovery_sessions ADD COLUMN IF NOT EXISTS budget VARCHAR(30) NULL;

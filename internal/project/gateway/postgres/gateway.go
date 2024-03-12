@@ -94,9 +94,9 @@ func (r *gateway) SaveDiscoverySession(ctx context.Context, obj *entity.Discover
 		return err
 	}
 
-	const query = `INSERT INTO discovery_sessions (id, name, email, date, project_details, created, updated) VALUES ($1, $2, $3, $4, $5, $6, $7)`
+	const query = `INSERT INTO discovery_sessions (id, name, email, date, project_details, budget, created, updated) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`
 
-	_, err = tx.ExecContext(ctx, query, obj.ID.String(), obj.Name.String(), obj.Email.String(), obj.Date.Time(), obj.ProjectDetails.String(), obj.Created, obj.Updated)
+	_, err = tx.ExecContext(ctx, query, obj.ID.String(), obj.Name.String(), obj.Email.String(), obj.Date.Time(), obj.ProjectDetails.String(), obj.Budget.String(), obj.Created, obj.Updated)
 	if err != nil {
 		_ = tx.Rollback()
 		return err

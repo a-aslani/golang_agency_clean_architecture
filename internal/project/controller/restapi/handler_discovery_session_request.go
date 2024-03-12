@@ -20,6 +20,7 @@ type discoverySessionRequestHandlerRequest struct {
 	Email          string   `json:"email"`
 	Date           string   `json:"date"`
 	ProjectDetails string   `json:"project_details"`
+	Budget         string   `json:"budget"`
 	RecaptchaToken string   `json:"recaptcha_token"`
 	Files          []string `json:"files"`
 }
@@ -77,6 +78,7 @@ func (r *controller) discoverySessionRequestHandler() gin.HandlerFunc {
 		req.Email = vo.DiscoverySessionEmail(jsonReq.Email)
 		req.Date = vo.DiscoverySessionDate(date)
 		req.ProjectDetails = vo.DiscoverySessionProjectDetails(jsonReq.ProjectDetails)
+		req.Budget = vo.DiscoverySessionBudget(jsonReq.Budget)
 		req.RecaptchaToken = jsonReq.RecaptchaToken
 		req.Secret = r.cfg.RecaptchaSecretKey
 		req.Files = jsonReq.Files

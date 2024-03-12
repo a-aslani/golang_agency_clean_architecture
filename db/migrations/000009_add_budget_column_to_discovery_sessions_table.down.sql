@@ -1,0 +1,1 @@
+ALTER TABLE discovery_sessions DROP COLUMN IF EXISTS budget;

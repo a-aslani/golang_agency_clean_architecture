@@ -15,6 +15,7 @@ type InportRequest struct {
 	Email          vo.DiscoverySessionEmail
 	Date           vo.DiscoverySessionDate
 	ProjectDetails vo.DiscoverySessionProjectDetails
+	Budget         vo.DiscoverySessionBudget
 	RecaptchaToken string
 	Secret         string
 	Files          []string
